@@ -1,5 +1,5 @@
 # TODO : Set linker script after parsing the linker template.
-set(_linker_script "${CMAKE_SOURCE_DIR}/build/init0-static.ld.in")
+set(_linker_script "${CMAKE_SOURCE_DIR}/scripts/init0-static.ld.in")
 
 get_property(AARC_SYSTEM_OBJECTS GLOBAL PROPERTY AARC_SYSTEM_OBJECTS)
 
