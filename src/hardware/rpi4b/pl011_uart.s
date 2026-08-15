@@ -1,4 +1,4 @@
-.include "bcm2711.inc"
+.include "bcm2711.inc.s"
 
 .section .text
 
