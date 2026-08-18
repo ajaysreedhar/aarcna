@@ -5,6 +5,7 @@
 .extern uart0_init
 .extern uart0_write
 .extern uart0_close
+.extern framebuffer_init
 
 _start:
     MRS     X9, MPIDR_EL1
@@ -32,6 +33,10 @@ core0_start:
     LDR     X0, =msg_yaay
     BL      uart0_write
     BL      uart0_close
+
+    MOV     W0, #1920
+    MOV     W1, #1080
+    BL      framebuffer_init
 
     B       core_hang
 
