@@ -1,9 +1,9 @@
 .include "bcm2711.inc.s"
 
-.equ GPU_MBOX_BASE_REG, ARM_PERIPHERAL_BASE + 0xb880,
-.equ GPU_MBOX_READ_REG, GPU_MBOX_BASE_REG,
-.equ GPU_MBOX_STATUS_REG, GPU_MBOX_BASE_REG + 0x18,
-.equ GPU_MBOX_WRITE_REG, GPU_MBOX_BASE_REG + 0x20,
+.equ GPU_MBOX_BASE_REG, ARM_PERIPHERAL_BASE + 0xb880
+.equ GPU_MBOX_READ_REG, GPU_MBOX_BASE_REG
+.equ GPU_MBOX_STATUS_REG, GPU_MBOX_BASE_REG + 0x18
+.equ GPU_MBOX_WRITE_REG, GPU_MBOX_BASE_REG + 0x20
 
 .global mailbox_read
 .type mailbox_read, %function
@@ -31,8 +31,8 @@
  * ============================================================
  */
 mailbox_read:
-    MOV     X9, #GPU_MBOX_STATUS_REG
-    MOV     X10, #GPU_MBOX_READ_REG 
+    LDR     X9, =GPU_MBOX_STATUS_REG
+    LDR     X10, =GPU_MBOX_READ_REG 
 1:
     LDR     W11, [X9]       // MMIO read.
     TBNZ    W11, #30, 1b
@@ -65,8 +65,8 @@ mailbox_write:
     BIC     W1, W1, 0xF
     ORR     W1, W0, W1
 
-    MOV     X9, #GPU_MBOX_STATUS_REG
-    MOV     X10, #GPU_MBOX_WRITE_REG 
+    LDR     X9, =GPU_MBOX_STATUS_REG
+    LDR     X10, =GPU_MBOX_WRITE_REG 
 1:
     LDR     W11, [X9]       // MMIO read.
     TBNZ    W11, #31, 1b
