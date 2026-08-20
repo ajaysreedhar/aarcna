@@ -104,10 +104,10 @@ mailbox_call:
     MOV     SP, X29
     LDP     X29, X30, [SP], #32
 
-    MOV     W0, WZR
+    MOV     W0, #1
     MOVZ    W10, #0x8000, LSL #16
     CMP     W9, W10
     BEQ     1f
-    MOV     W0, #-1
+    MOV     W0, WZR
 
 1:  RET
