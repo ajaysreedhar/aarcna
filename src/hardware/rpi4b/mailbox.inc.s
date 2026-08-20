@@ -8,7 +8,7 @@
 .equ MBOX_CH_BTNS,  5
 .equ MBOX_CH_TOUCH, 6
 .equ MBOX_CH_COUNT, 7
-.equ MBOX_CH_PROP,  8
+.equ MBOX_CH_PROPS, 8
 
 .equ MBOX_REQUEST_CODE, 0x0
 
