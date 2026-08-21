@@ -155,6 +155,6 @@ mailbox_buffer:
 
 /* Frame buffer properties struct. */
 .balign 8
-.size frame_buffer, 16
+.size frame_buffer, 24
 frame_buffer:
-.zero 16
+.zero 24
