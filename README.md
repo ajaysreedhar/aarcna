@@ -23,7 +23,7 @@ $ cmake --build build
 
 The binaries will be placed to `dist/` directory.
 
-## :bug: Testing and Debugging
+## :test_tube: Testing and Debugging
 
 Before running on a real hardware, the builds can be tested with QEMU.
 
