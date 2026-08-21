@@ -1,14 +1,14 @@
-# What is this?
+## What is this?
 
 Aarcna is an attempt to build a minimal yet functional operating system for AArch64-based processors.
 
 The goal here is to experiment and learn rather than building another operating system.
 
-## :computer: Supported Hardware
+### :computer: Supported Hardware
 
 Currently the builds are exclusively for **Raspberry Pi 4b** computers. In the future, more platforms might be supported.
 
-## :building_construction: Compiling and Building
+### :building_construction: Compiling and Building
 
 To compile the project, the **ARM cross-compiler** toolchain is required.
 
@@ -23,13 +23,13 @@ $ cmake --build build
 
 The binaries will be placed to `dist/` directory.
 
-## :test_tube: Testing and Debugging
+### :test_tube: Testing and Debugging
 
 Before running on a real hardware, the builds can be tested with QEMU.
 
 ```bash
 $ sudo apt install qemu-system-arm
-$ qemu-system-aarch64 -M raspi4b -nographic -kernel dist/kernel8.img -s -S
+$ qemu-system-aarch64 -M raspi4b -serial stdio -display sdl -kernel dist/kernel8.img -s -S
 ```
 
 The `-s -S` flag starts loads the kernel but halts the virtual CPU until a debugger is connected.
