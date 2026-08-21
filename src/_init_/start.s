@@ -6,6 +6,7 @@
 .extern uart0_write
 .extern uart0_close
 .extern framebuffer_init
+.extern paint_box
 
 _start:
     MRS     X9, MPIDR_EL1
@@ -37,6 +38,14 @@ core0_start:
     MOV     W0, #1920
     MOV     W1, #1080
     BL      framebuffer_init
+
+    MOVZ    W1, #200
+    MOVZ    W2, #200
+    MOVZ    W3, #220
+    MOVZ    W4, #220
+    MOVZ    W5, #0xFFFF
+    MOVK    W5, #0xFF00, LSL #16
+    BL      paint_box
 
     B       core_hang
 
