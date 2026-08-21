@@ -23,14 +23,13 @@ $ cmake --build build
 
 The binaries will be placed to `dist/` directory.
 
-## Testing and Debugging
+## :bug: Testing and Debugging
 
 Before running on a real hardware, the builds can be tested with QEMU.
 
 ```bash
 $ sudo apt install qemu-system-arm
-$ cd dist
-$ qemu-system-aarch64 -M raspi4b -nographic -kernel kernel8.img -s -S
+$ qemu-system-aarch64 -M raspi4b -nographic -kernel dist/kernel8.img -s -S
 ```
 
 The `-s -S` flag starts loads the kernel but halts the virtual CPU until a debugger is connected.
@@ -38,7 +37,7 @@ The `-s -S` flag starts loads the kernel but halts the virtual CPU until a debug
 In this case, the debugger provided in the ARM toolchain is handy.
 
 ```bash
-$ aarch64-none-elf-gdb kernel8.elf
+$ aarch64-none-elf-gdb dist/kernel8.elf
 (gdb) target remote localhost:1234
 (gdb) layout asm
 (gdb) layout regs
