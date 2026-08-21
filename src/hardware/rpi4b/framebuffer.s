@@ -1,5 +1,8 @@
 .include "mailbox.inc.s"
 
+.type frame_buffer, %object
+.global frame_buffer
+
 .type mailbox_buffer, %object
 .global mailbox_buffer
 
@@ -23,11 +26,7 @@
  *   W2 - depth.
  * 
  * Results:
- *   X0 - The framebuffer address.
- *   W1 - Actual physical width.
- *   W2 - Actual physical height.
- *   W3 - Number of bytes per line.
- *   W4 - Pixel order.
+ *   X0 - The framebuffer struct address.
  * ============================================================
  */
 framebuffer_init:
@@ -112,19 +111,33 @@ framebuffer_init:
     BNE     1f
 
     LDR     W11, [X9, #112] // mailbox_buffer[28]
-    CBZ     1f
+    CBZ     W11, 1f
 
     /* To convert GPU address to ARM address, AND with 0x3FFFFFFF */
     MOV     X10, XZR
     MVN     W10, WZR
     BFC     W10, #30, #2
-    AND     X0, X10, X11
-    STR     X0, [X9, #112] // mailbox_buffer[28]
+    AND     X1, X10, X11
+    STR     X1, [X9, #112] // mailbox_buffer[28]
 
-    LDR     W1, [X9, #40]  // mailbox_buffer[10]
-    LDR     W2, [X9, #44]  // mailbox_buffer[11]
-    LDR     W3, [X9, #132] // mailbox_buffer[33]
-    LDR     W4, [X9, #96]    // mailbox_buffer[24]
+    ADRP    X0, frame_buffer
+    ADD     X0, X0, :lo12:frame_buffer
+
+    STR     X1, [X0]
+
+    LDR     W10, [X9, #40]  // mailbox_buffer[10]
+    ORR     X11, XZR, X10
+
+    LDR     W10, [X9, #44]  // mailbox_buffer[11]
+    ORR     X11, X11, X10, LSL #32
+
+    LDR     W10, [X9, #132] // mailbox_buffer[33]
+    ORR     X12, XZR, X10
+
+    LDR     W10, [X9, #96]  // mailbox_buffer[24]
+    ORR     X12, X12, X10, LSL #32
+
+    STP     X11, X12, [X0, #8]
 
 1:  MOV     SP, X29
     LDP     X29, X30, [SP], #32
@@ -134,8 +147,14 @@ framebuffer_init:
 /* Uninitialized data segment. */
 .section .bss
 
-.balign 16      // Mailbox buffers should be 16-byte aligned.
+/* Mailbox buffer array. */
+.balign 16
 .size mailbox_buffer, 144
 mailbox_buffer:
 .zero 144
 
+/* Frame buffer properties struct. */
+.balign 8
+.size frame_buffer, 16
+frame_buffer:
+.zero 16
