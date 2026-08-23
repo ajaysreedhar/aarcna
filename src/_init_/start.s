@@ -11,14 +11,32 @@
 _start:
     MRS     X9, MPIDR_EL1
     AND     X9, X9, 0xFF
-    CBZ     X9, core0_start
+    CBZ     X9, el1_downgrade
 
 core_hang:
     WFE
     B       core_hang
 
-core0_start:
+el1_downgrade:
     MRS     X9, CurrentEl
+    TBZ     X9, #3, core0_start
+    
+    /* Setting EL1 state to AArch64. */
+    AND     X9, X9, XZR
+    MOVK    X9, #0x8000, LSL #16
+    MSR     HCR_EL2, X9
+
+    /* Set target exception level to EL1h. */
+    MOV     X9, #0x3C5
+    MSR     SPSR_EL2, X9
+
+    /* Set target entry point for EL1 to continue. */
+    ADR     X9, core0_start
+    MSR     ELR_EL2, X9
+
+    ERET    
+
+core0_start:
     LDR     X0, =__bss_start_addr__
     LDR     X1, =__bss_end_addr__
     BL      clear_bss
