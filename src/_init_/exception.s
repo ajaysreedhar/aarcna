@@ -27,7 +27,7 @@ preserve_state:
     STP     X22, X23, [SP, #192]
     STP     X24, X25, [SP, #208]
     STP     X26, X27, [SP, #224]
-    STP     X28, XZR  [SP, #240]
+    STP     X28, XZR, [SP, #240]
 
     MRS     X0, SPSR_EL1
     MRS     X1, ELR_EL1
@@ -54,7 +54,7 @@ restore_state:
     LDP     X22, X23, [SP, #192]
     LDP     X24, X25, [SP, #208]
     LDP     X26, X27, [SP, #224]
-    LDP     X28, XZR  [SP, #240]
+    LDP     X28, XZR, [SP, #240]
 
     MOV     SP, X29
     LDP     X29, X30, [SP], #272
