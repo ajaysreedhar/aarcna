@@ -20,7 +20,7 @@ function(xadd_system_object obj_name source_path)
 
     target_include_directories(${obj_name} PUBLIC 
         ${CMAKE_CURRENT_SOURCE_DIR}/${source_path} 
-        ${CMAKE_SOURCE_DIR}/src/include)
+        ${CMAKE_SOURCE_DIR}/include)
 
     set_property(GLOBAL APPEND PROPERTY AARC_SYSTEM_OBJECTS ${obj_name})
 endfunction()
