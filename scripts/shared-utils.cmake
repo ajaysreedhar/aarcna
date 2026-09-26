@@ -16,7 +16,7 @@ function(xadd_system_object obj_name source_path)
     add_library(${obj_name} OBJECT ${obj_sources})
 
     target_compile_options(${obj_name} PRIVATE 
-        $<$<COMPILE_LANGUAGE:C>:-Wall -O2 -ffreestanding -nostdinc -nostdlib -nostartfiles>)
+        $<$<COMPILE_LANGUAGE:C>:-Wall -O2 -ffreestanding -nostdlib -nostartfiles>)
 
     target_include_directories(${obj_name} PUBLIC 
         ${CMAKE_CURRENT_SOURCE_DIR}/${source_path} 
