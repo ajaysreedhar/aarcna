@@ -5,7 +5,7 @@
  * https://support.arm.com/documentation/102412/0103/Handling-exceptions/Taking-an-exception?lang=en
  */
 
-.global el1_vector_table
+.global vector_table_el1
 
 .section ".text"
 
@@ -239,7 +239,7 @@ el0_a32_serror_handler:
 
 /* Executable instructions. */
 .section ".text.vectors"
-el1_vector_table:
+vector_table_el1:
 /* Group 1: Current EL with SP_EL0. */
     B   el1_sp0_sync_handler
 .balign 128

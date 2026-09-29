@@ -26,7 +26,7 @@ el1_downgrade:
     MOVK    X9, #0x8000, LSL #16
     MSR     HCR_EL2, X9
 
-    /* Set target exception level to EL1h. */
+    /* Set target exception level to EL1. */
     MOV     X9, #0x3C5
     MSR     SPSR_EL2, X9
 
@@ -40,6 +40,9 @@ core0_start:
     LDR     X0, =__bss_start_addr__
     LDR     X1, =__bss_end_addr__
     BL      clear_bss
+
+    ADRP    X0, vector_table_el1
+    ADD     X0, X0 :lo12:vector_table_el1
 
     // Setup a temporary stack.
     LDR     X9, =__stack0_top_addr__
