@@ -239,6 +239,7 @@ el0_a32_serror_handler:
 
 /* Executable instructions. */
 .section ".text.vectors"
+.balign 2048
 vector_table_el1:
 /* Group 1: Current EL with SP_EL0. */
     B   el1_sp0_sync_handler
