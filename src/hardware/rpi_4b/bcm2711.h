@@ -1,5 +1,5 @@
 #ifndef __RPI4B_BCM2711_H__
-#define __RPI4B_BCM2711_H__
+#define __RPI4B_BCM2711_H__ 1
 
 #define ARM_PERIPHERAL_BASE 0xFE000000
 
@@ -38,5 +38,10 @@ enum uart_0 {
     UART0_ITOP_REG = UART0_BASE_ADDR + 0x88,
     UART0_TDATA_REG = UART0_BASE_ADDR + 0x8c,
 };
+
+typedef volatile unsigned int* mmio_reg_t;
+
+void mmio_write(mmio_reg_t addr, unsigned int value);
+unsigned int mmio_read(mmio_reg_t addr);
 
 #endif // #ifndef __RPI4B_BCM2711_H__
