@@ -2,11 +2,7 @@
 
 .global _start
 
-.extern uart0_init
-.extern uart0_write
-.extern uart0_close
-.extern framebuffer_init
-.extern paint_box
+.extern kernel_start
 
 _start:
     MRS     X9, MPIDR_EL1
@@ -42,13 +38,18 @@ core0_start:
     BL      clear_bss
 
     ADRP    X0, vector_table_el1
-    ADD     X0, X0 :lo12:vector_table_el1
+    ADD     X0, X0, :lo12:vector_table_el1
+    MSR     VBAR_EL1, X0
+    ISB
+
+    MSR     DAIFClr, #2 // Unmask and enable IRQ.
 
     // Setup a temporary stack.
     LDR     X9, =__stack0_top_addr__
     MOV     SP, X9      // Initially stack top and frame-pointer are same.
     MOV     X29, X9     // X29 is the frame-pointer register as per AAPCS64.
 
+    /*
     BL      uart0_init
     LDR     X0, =msg_hello
     BL      uart0_write
@@ -67,7 +68,9 @@ core0_start:
     MOVZ    W5, #0xFFFF
     MOVK    W5, #0xFF00, LSL #16
     BL      paint_box
+    */
 
+    B       kernel_start
     B       core_hang
 
 clear_bss:
