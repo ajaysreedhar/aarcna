@@ -4,4 +4,5 @@ IndentWidth: 4
 DerivePointerAlignment: false
 PointerAlignment: Left
 ColumnLimit: 128
+SortIncludes: false
 ---
