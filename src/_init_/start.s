@@ -37,15 +37,19 @@ core0_start:
     LDR     X1, =__bss_end_addr__
     BL      clear_bss
 
+    /*
     ADRP    X0, vector_table_el1
     ADD     X0, X0, :lo12:vector_table_el1
     MSR     VBAR_EL1, X0
     ISB
 
     MSR     DAIFClr, #2 // Unmask and enable IRQ.
+    */
 
     // Setup a temporary stack.
-    LDR     X9, =__stack0_top_addr__
+setup_stack0:
+    LDR     X9,  =__stack0_top_addr__
+    LDR     X10, =__stack0_bottom_addr__
     MOV     SP, X9      // Initially stack top and frame-pointer are same.
     MOV     X29, X9     // X29 is the frame-pointer register as per AAPCS64.
 
@@ -70,7 +74,7 @@ core0_start:
     BL      paint_box
     */
 
-    B       kernel_start
+    BL      kernel_start
     B       core_hang
 
 clear_bss:
