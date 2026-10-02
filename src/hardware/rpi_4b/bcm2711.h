@@ -39,7 +39,8 @@ enum uart_0 {
     UART0_TDATA_REG = UART0_BASE_ADDR + 0x8c,
 };
 
-typedef volatile unsigned int* mmio_reg_t;
+typedef volatile unsigned long mmio_reg_t;
+typedef volatile unsigned int* mmio_ptr_t;
 
 void mmio_write(mmio_reg_t addr, unsigned int value);
 unsigned int mmio_read(mmio_reg_t addr);
