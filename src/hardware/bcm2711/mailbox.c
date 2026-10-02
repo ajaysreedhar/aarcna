@@ -1,8 +1,4 @@
-#include "mailbox.h"
-#include "bcm2711.h"
-
-// MBOX_BUFFER_SIZE = 36
-volatile unsigned int __attribute__((aligned(16))) mailbox_buffer[MBOX_BUFFER_SIZE];
+#include <hardware/bcm2711.h>
 
 enum {
     GPU_MBOX_BASE_REG = ARM_PERIPHERAL_BASE + 0xb880,

@@ -1,5 +1,4 @@
-#include "bcm2711.h"
-#include <hardware/uart.h>
+#include <hardware/bcm2711.h>
 
 static void uart0_putc(char c) {
     unsigned int flags = mmio_read(UART0_FLAG_REG);
@@ -84,14 +83,13 @@ void uart0_init() {
     mmio_write(UART0_CTRL_REG, 1 | (1 << 8) | (1 << 9));
 }
 
-void uart0_write(char* text) {
-    while (*text != '\0') {
-        if (*text == '\n') {
+void uart0_write(const char* const text) {
+    for (int index = 0; text[index] != '\0'; index++) {
+        if (text[index] == '\n') {
             uart0_putc('\r');
         }
 
-        uart0_putc(*text);
-        text++;
+        uart0_putc(text[index]);
     }
 }
 
