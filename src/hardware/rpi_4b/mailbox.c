@@ -2,17 +2,15 @@
 #include "bcm2711.h"
 
 // MBOX_BUFFER_SIZE = 36
-volatile unsigned int
-    __attribute__((aligned(16))) mailbox_buffer[MBOX_BUFFER_SIZE];
+volatile unsigned int __attribute__((aligned(16))) mailbox_buffer[MBOX_BUFFER_SIZE];
 
 enum {
     GPU_MBOX_BASE_REG = ARM_PERIPHERAL_BASE + 0xb880,
     GPU_MBOX_READ_REG = GPU_MBOX_BASE_REG,
     GPU_MBOX_STATUS_REG = GPU_MBOX_BASE_REG + 0x18,
     GPU_MBOX_WRITE_REG = GPU_MBOX_BASE_REG + 0x20,
-    MBOX_FULL_MASK = 0x80000000, // 31st bit is 1 and the remaining are zeros.
-    MBOX_EMPTY_MASK =
-        0x40000000, // 30th bit is set to 1 and the remaining are zeros.
+    MBOX_FULL_MASK = 0x80000000,  // 31st bit is 1 and the remaining are zeros.
+    MBOX_EMPTY_MASK = 0x40000000, // 30th bit is set to 1 and the remaining are zeros.
     MBOX_CHANNEL_PROP_TAGS = 0x8,
     MBOX_PROP_CHANNEL = 8
 };
