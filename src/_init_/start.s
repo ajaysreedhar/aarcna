@@ -41,9 +41,6 @@ core0_start:
     LDR     X1, =__bss_end_addr__
     BL      clear_bss
 
-    ADRP    X0, vector_table_el1
-    ADD     X0, X0 :lo12:vector_table_el1
-
     // Setup a temporary stack.
     LDR     X9, =__stack0_top_addr__
     MOV     SP, X9      // Initially stack top and frame-pointer are same.
