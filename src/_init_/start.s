@@ -53,27 +53,6 @@ setup_stack0:
     MOV     SP, X9      // Initially stack top and frame-pointer are same.
     MOV     X29, X9     // X29 is the frame-pointer register as per AAPCS64.
 
-    /*
-    BL      uart0_init
-    LDR     X0, =msg_hello
-    BL      uart0_write
-    LDR     X0, =msg_yaay
-    BL      uart0_write
-    BL      uart0_close
-
-    MOV     W0, #1920
-    MOV     W1, #1080
-    BL      framebuffer_init
-
-    MOVZ    W1, #200
-    MOVZ    W2, #200
-    MOVZ    W3, #220
-    MOVZ    W4, #220
-    MOVZ    W5, #0xFFFF
-    MOVK    W5, #0xFF00, LSL #16
-    BL      paint_box
-    */
-
     BL      kernel_start
     B       core_hang
 
@@ -84,8 +63,3 @@ clear_bss:
     B       clear_bss
 1:
     RET
-
-.section .rodata
-
-msg_hello: .string "Hello, World! Welcome to ARM64 Assembly Workshop.\n"
-msg_yaay: .string "If you are reading this, PL011 UART is successfully configured."
