@@ -45,4 +45,6 @@ typedef volatile unsigned int* mmio_ptr_t;
 void mmio_write(mmio_reg_t addr, unsigned int value);
 unsigned int mmio_read(mmio_reg_t addr);
 
+int mailbox_call(int channel, volatile unsigned int* buffer);
+
 #endif // #ifndef __HARDWARE_BCM2711_H__

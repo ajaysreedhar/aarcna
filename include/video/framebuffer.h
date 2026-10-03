@@ -1,7 +1,7 @@
 #ifndef __VIDEO_FRAMEBUFFER_H__
 #define __VIDEO_FRAMEBUFFER_H__ 1
 
-typedef unsigned int* fb_ptr_t;
+typedef unsigned char* fb_ptr_t;
 
 struct video_buffer {
     fb_ptr_t address;

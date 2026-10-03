@@ -40,7 +40,7 @@ unsigned int mailbox_read(unsigned int channel) {
     return message & (~0xF);
 }
 
-int mailbox_call(int channel, unsigned int* buffer) {
+int mailbox_call(int channel, volatile unsigned int* buffer) {
     mailbox_write(channel, buffer);
 
     mailbox_read(channel);
