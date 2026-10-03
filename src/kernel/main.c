@@ -7,7 +7,8 @@ void kernel_start() {
     uart0_write("Hello, World! Welcome to AARCNA.\n");
     uart0_write("If you are reading this, PL011 UART is successfully initialized.\n");
 
-    framebuffer_init(1920, 1080);
+    struct video_buffer* buffer = framebuffer_init(1920, 1080);
+    paint_box(buffer, 200, 200, 220, 220, 0xFFFFAA);
 
     uart0_close();
 }
