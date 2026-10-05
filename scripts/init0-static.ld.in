@@ -34,9 +34,9 @@ SECTIONS
     }
 
     .unsafe_temp_stack (NOLOAD): ALIGN(16) {
-        PROVIDE(__unsafe_bottom_addr__ = .);
+        PROVIDE(__unsafe_el0_bottom_addr__ = .);
         . += 64K;
-        PROVIDE(__unsafe_top_addr__ = .);
+        PROVIDE(__unsafe_el0_top_addr__ = .);
     }
 
     _end = .;
