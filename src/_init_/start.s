@@ -2,6 +2,7 @@
 
 .global _start
 
+.extern vtable_el1
 .extern kernel_start
 
 _start:
@@ -37,14 +38,14 @@ core0_start:
     LDR     X1, =__bss_end_addr__
     BL      clear_bss
 
-    /*
-    ADRP    X0, vector_table_el1
-    ADD     X0, X0, :lo12:vector_table_el1
+    //*
+    ADRP    X0, vtable_el1
+    ADD     X0, X0, :lo12:vtable_el1
     MSR     VBAR_EL1, X0
     ISB
 
     MSR     DAIFClr, #2 // Unmask and enable IRQ.
-    */
+    // */
 
     // Setup a temporary stack.
 setup_stack0:
