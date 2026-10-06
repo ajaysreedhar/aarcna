@@ -5,3 +5,4 @@
 print:
     MOV X8, #2
     SVC #0
+    RET
